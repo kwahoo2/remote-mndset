@@ -8,7 +8,7 @@ Both keyboard and mouse or gamepad are supported.
 
 ![remote-mndset][rmds]
 
-[rmds]: https://raw.githubusercontent.com/kwahoo2/remote-mndset/main/images/main_window.png "Main Window"
+[rmds]: https://github.com/kwahoo2/remote-mndset/blob/main/images/main_window.png "Main Window"
 
 ## How to use
 
