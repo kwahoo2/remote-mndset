@@ -6,7 +6,7 @@
 #include "math_helper.h"
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/gtx/euler_angles.hpp>
+#include "glm/gtx/euler_angles.hpp"
 
 // angles in radians
 struct xrt_quat quatFromYXZ(float yaw, float pitch, float roll) {

@@ -14,6 +14,7 @@ set(IMGUI_SOURCES
     3rdparty/imgui/imgui_widgets.cpp
     3rdparty/imgui/backends/imgui_impl_sdl3.cpp
     3rdparty/imgui/backends/imgui_impl_sdlgpu3.cpp
+    3rdparty/imgui/misc/cpp/imgui_stdlib.cpp
 )
 
 add_executable(remote-mndset main.cpp
@@ -31,7 +32,7 @@ add_executable(remote-mndset main.cpp
     settings.h
 )
 
-target_include_directories(remote-mndset PRIVATE 3rdparty/imgui;3rdparty/imgui/backends)
+target_include_directories(remote-mndset PRIVATE 3rdparty/imgui;3rdparty/imgui/backends;3rdparty/imgui/misc/cpp;3rdparty/glm)
 
 target_link_libraries(remote-mndset PRIVATE SDL3::SDL3-shared)
 
