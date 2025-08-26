@@ -3,8 +3,10 @@
  * @author Adrian Przekwas <adrian.v.przekwas@gmail.com>
  */
 
-#include "imgui.h"
 #include "main_window.h"
+
+#include "imgui.h"
+#include "misc/cpp/imgui_stdlib.h"
 
 void drawMainWindow(WindowState& state) {
     ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
@@ -27,6 +29,7 @@ void drawMainWindow(WindowState& state) {
     } else {
         ImGui::Text("No gamepad found");
     }
+    ImGui::InputText( "monado-service IP", &state.config.server_ip);
     if (state.connect_button_clicked){
         if (ImGui::Button("Disconnect")){
             state.connect_button_clicked = false;

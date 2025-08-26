@@ -13,7 +13,7 @@ class DataSender {
 public:
     DataSender();
     ~DataSender();
-    int openSocket(void);
+    int openSocket(std::string server_ip);
     bool isSocketOpened(void);
     int sendData(const r_remote_data &data);
     void closeSocket(void);

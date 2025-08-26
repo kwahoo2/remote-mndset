@@ -125,6 +125,7 @@ struct Config {
     float mouse_sens;
     float gamepad_axis_sens;
     float gamepad_dead_zone;
+    std::string server_ip;
 };
 
 // state of an ImGui window

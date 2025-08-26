@@ -16,12 +16,10 @@ DataSender::DataSender() {
     sockfd = -1;
 }
 
-int DataSender::openSocket(void) {
+int DataSender::openSocket(std::string server_ip) {
     if (isSocketOpened()){
         closeSocket();
     }
-
-    const char* server_ip = "127.0.0.1"; // localhost
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
@@ -32,7 +30,7 @@ int DataSender::openSocket(void) {
     sockaddr_in server_addr{};
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(MONADO_PORT);
-    if (inet_pton(AF_INET, server_ip, &server_addr.sin_addr) <= 0) {
+    if (inet_pton(AF_INET, server_ip.c_str(), &server_addr.sin_addr) <= 0) {
         std::cerr << "Adress conversion error!" << std::endl;
         closeSocket();
         return -1;

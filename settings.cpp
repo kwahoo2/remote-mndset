@@ -35,10 +35,11 @@ void saveConfig(const fs::path& config_dir, const Config& config) {
     out << "MouseSensivity=" << config.mouse_sens << "\n";
     out << "GamepadAxisSensivity=" << config.gamepad_axis_sens<< "\n";
     out << "GamepadDeadZone=" << config.gamepad_dead_zone<< "\n";
+    out << "ServerIP=" << config.server_ip<< "\n";
 }
 
 Config loadConfig(const fs::path& config_dir) {
-    Config config {1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 0.1f};
+    Config config {1.0f, 1.0f, 1.0f, 1.0f, 0.5f, 1.0f, 0.1f, "127.0.0.1"};
     auto config_path = config_dir / "config.txt";
 
     if (!fs::exists(config_path)) {
@@ -70,6 +71,8 @@ Config loadConfig(const fs::path& config_dir) {
                 config.gamepad_axis_sens = std::stof(value);
             } else if (key == "GamepadDeadZone") {
                 config.gamepad_dead_zone = std::stof(value);
+            } else if (key == "ServerIP") {
+                config.server_ip = value;
             }
         }
     }

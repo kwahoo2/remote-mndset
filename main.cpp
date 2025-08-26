@@ -35,7 +35,7 @@ int main()
     bool running = true;
     Uint64 old_ticks = 0;
     int width = 640;
-    int height = 280;
+    int height = 300;
     float base_mouse_x = 0.0f;
     float base_mouse_y = 0.0f;
 
@@ -316,7 +316,7 @@ int main()
         drawMainWindow(w_state); // window with all widgets
 
         if (w_state.connect_button_clicked && !dataSender->isSocketOpened()) {
-            dataSender->openSocket();
+            dataSender->openSocket(w_state.config.server_ip);
         }
         if (!w_state.connect_button_clicked && dataSender->isSocketOpened()) {
             dataSender->closeSocket();
@@ -331,6 +331,7 @@ int main()
         mouse_kb_grabbed = w_state.grab_button_clicked;
 
         config = w_state.config;
+
         hmdMov->updateConfigValues(config.hmd_lin_vel, config.hmd_ang_vel,
                                    config.mouse_sens, config.gamepad_axis_sens, config.gamepad_dead_zone);
         leftMov->updateConfigValues(config.controller_lin_vel, config.controller_ang_vel,
