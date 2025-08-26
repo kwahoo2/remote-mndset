@@ -68,3 +68,6 @@ Note: a keyboard + mouse and a controller cannot be used simultaneously (the con
 ## License
 
 Check [LICENSE](LICENSE) for details.
+
+[remote_mndset](https://github.com/kwahoo2/remote-mndset) repository containts parts of [OpenGL Mathematics (GLM)](https://github.com/g-truc/glm) library and [Dear ImGui](https://github.com/ocornut/imgui) library.
+
