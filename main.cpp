@@ -83,7 +83,6 @@ int main()
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
     // Setup Dear ImGui style
     ImGui::StyleColorsLight();
@@ -198,7 +197,6 @@ int main()
                     ImGui_ImplSDL3_ProcessEvent(&event);
                 }
             }
-
         }
 
         if (mouse_kb_grabbed) {
@@ -209,9 +207,13 @@ int main()
                 hmdMov->passMouseRelativePos(x_rel, y_rel);
                 break;
             case left_controller:
+                data.left.a_click = (mouse_flags & SDL_BUTTON_MASK(SDL_BUTTON_X1)) != 0;
+                data.left.b_click = (mouse_flags & SDL_BUTTON_MASK(SDL_BUTTON_X2)) != 0;
                 leftMov->passMouseRelativePos(x_rel, y_rel);
                 break;
             case right_controller:
+                data.right.a_click = (mouse_flags & SDL_BUTTON_MASK(SDL_BUTTON_X1)) != 0;
+                data.right.b_click = (mouse_flags & SDL_BUTTON_MASK(SDL_BUTTON_X2)) != 0;
                 rightMov->passMouseRelativePos(x_rel, y_rel);
                 break;
             }
@@ -250,9 +252,13 @@ int main()
                 hmdMov->passGamepadState(*gamepad);
                 break;
             case left_controller:
+                data.left.a_click = SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_SOUTH);
+                data.left.b_click = SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_EAST);
                 leftMov->passGamepadState(*gamepad);
                 break;
             case right_controller:
+                data.right.a_click = SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_SOUTH);
+                data.right.b_click = SDL_GetGamepadButton(gamepad, SDL_GAMEPAD_BUTTON_EAST);
                 rightMov->passGamepadState(*gamepad);
                 break;
             }

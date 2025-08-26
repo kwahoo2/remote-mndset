@@ -8,7 +8,7 @@
 
 #include <cstdlib>
 
-Movement::Movement(){
+Movement::Movement() {
     lin_vel = 0.001f; // linear velocity
     ang_vel = 0.001f; // angular velocity
     mouse_sens = 0.5f; // mouse sensivity
@@ -17,7 +17,7 @@ Movement::Movement(){
     r_rate_mod = 16.0f; // frame duration-dependent velocity correction
     old_ticks = 0;
 }
-Movement::~Movement(){
+Movement::~Movement() {
 
 }
 
@@ -32,18 +32,17 @@ void Movement::updateConfigValues(float lin_v, float ang_v,
 }
 
 /* Pass keboard press/release keys events, and modify movement speed and actions*/
-void Movement::passKeyboardEvent(SDL_Event& event){
+void Movement::passKeyboardEvent(SDL_Event& event) {
     if (event.type == SDL_EVENT_KEY_UP){
         checkKeyUp(event.key.key);
     }
     else if (event.type == SDL_EVENT_KEY_DOWN){
         checkKeyDown(event.key.key);
     }
-
 }
 
 /* Pass how much cursor moved since the last frame */
-void Movement::passMouseRelativePos(float x, float y){
+void Movement::passMouseRelativePos(float x, float y) {
     mov_mod.yaw = -x * mouse_sens;
     mov_mod.pitch = -y * mouse_sens;
 }
@@ -78,16 +77,32 @@ void Movement::passGamepadState(SDL_Gamepad& gamepad){
     } else {
         mov_mod.pitch = 0.0f;
     }
+
+    if (SDL_GetGamepadButton(&gamepad, SDL_GAMEPAD_BUTTON_DPAD_UP)) {
+        mov_mod.altitude = 1.0f;
+    } else if (SDL_GetGamepadButton(&gamepad, SDL_GAMEPAD_BUTTON_DPAD_DOWN)) {
+        mov_mod.altitude = -1.0f;
+    } else {
+        mov_mod.altitude = 0.0f;
+    }
+    if (SDL_GetGamepadButton(&gamepad, SDL_GAMEPAD_BUTTON_DPAD_LEFT)) {
+        mov_mod.roll = 1.0f;
+    } else if (SDL_GetGamepadButton(&gamepad, SDL_GAMEPAD_BUTTON_DPAD_RIGHT)) {
+        mov_mod.roll = -1.0f;
+    } else {
+        mov_mod.roll = 0.0f;
+    }
+
 }
 
 /* Ticks are used for frame time calculation and adjusting movement speed in every step */
-void Movement::updateTicks(Uint64 ticks){
+void Movement::updateTicks(Uint64 ticks) {
     Uint64 frame_ticks = ticks - old_ticks;
     r_rate_mod = static_cast<float>(frame_ticks);
     old_ticks = ticks;
 }
 
-void Movement::updatePose(xrt_pose& pose){
+void Movement::updatePose(xrt_pose& pose) {
     auto [yaw, pitch, roll] = quatToYXZ(pose.orientation);
 
     yaw += mov_mod.yaw * ang_vel * r_rate_mod;
@@ -102,7 +117,7 @@ void Movement::updatePose(xrt_pose& pose){
     pose.position = pose.position + delta_pos;
 }
 
-void Movement::checkKeyDown(SDL_Keycode key){
+void Movement::checkKeyDown(SDL_Keycode key) {
     switch (key){
         case SDLK_W:
             mov_mod.walk = -1.0f;
@@ -131,7 +146,7 @@ void Movement::checkKeyDown(SDL_Keycode key){
     }
 }
 
-void Movement::checkKeyUp(SDL_Keycode key){
+void Movement::checkKeyUp(SDL_Keycode key) {
     switch (key){
     case SDLK_W:
         mov_mod.walk = 0.0f;

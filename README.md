@@ -46,17 +46,23 @@ Note: a keyboard + mouse and a controller cannot be used simultaneously (the con
 | Mouse Y axis      | HMD Pitch           | Left Contr. Pitch           | Right Contr. Pitch           |
 | Mouse left button | Left Contr. Trigger | Left Contr. Trigger         | Left Contr. Trigger          |
 | Mouse right button| Right Contr. Trigger| Right Contr. Trigger        | Right Contr. Trigger         |
+| Mouse side btn 1  |                     | Left Contr. A               | Right Contr. A               |
+| Mouse side btn 2  |                     | Left Contr. B               | Right Contr. B               |
 
 ### Gamepad (tested with PS4 controller)
 
-| Input             | No modifier         | Left Bumper                 | Right Bumper                 |
+| Input             | No modifier         | Left Shoulder               | Right Shoulder               |
 | ------------------| --------------------|-----------------------------|------------------------------|
 | Left stick Y axis | HMD Forward/Backward| Left Contr. Forward/Backward| Right Contr. Forward/Backward|
 | Left stick X axis | HMD Left/Right      | Left Contr. Left/Right      | Right Contr. Left/Right      |
+| D-pad up/down     | HMD Up/Down         | Left Contr. Up/Down         | Right Contr. Up/Down         |
+| D-pad left/right  | HMD Roll            | Left Contr. Roll            | Right Contr. Roll            |
 | Right stick X axis| HMD Yaw             | Left Contr. Yaw             | Right Contr. Yaw             |
 | Right stick Y axis| HMD Pitch           | Left Contr. Pitch           | Right Contr. Pitch           |
 | Left trigger      | Left Contr. Trigger | Left Contr. Trigger         | Left Contr. Trigger          |
 | Right trigger     | Right Contr. Trigger| Right Contr. Trigger        | Right Contr. Trigger         |
+| South (triangle/A)|                     | Left Contr. A               | Right Contr. A               |
+| East  (circle/B)  |                     | Left Contr. B               | Right Contr. B               |
 
 
 ## License
