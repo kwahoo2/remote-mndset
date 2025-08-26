@@ -51,7 +51,7 @@ int main()
 
     float main_scale = SDL_GetDisplayContentScale(SDL_GetPrimaryDisplay());
     SDL_WindowFlags window_flags = SDL_WINDOW_RESIZABLE | SDL_WINDOW_HIDDEN | SDL_WINDOW_HIGH_PIXEL_DENSITY;
-    SDL_Window* window = SDL_CreateWindow("Monado remote client", (int)(width * main_scale), (int)(height * main_scale), window_flags);
+    SDL_Window* window = SDL_CreateWindow("remote-mndset", (int)(width * main_scale), (int)(height * main_scale), window_flags);
 
     if (window == nullptr){
         std::cerr << "Window could not be created! SDL error: " << SDL_GetError() << std::endl;
@@ -305,6 +305,12 @@ int main()
         if (!gamepads.empty()) {
             w_state.has_gamepad = true;
             w_state.gamepad_name = SDL_GetGamepadName(gamepads[0]);
+            int batt_percent;
+            SDL_PowerState powerState = SDL_GetGamepadPowerInfo(gamepads[0], &batt_percent);
+            if (powerState == SDL_POWERSTATE_ON_BATTERY || powerState == SDL_POWERSTATE_CHARGING
+                || powerState == SDL_POWERSTATE_CHARGED){
+                w_state.batt = batt_percent;
+            }
         }
 
         drawMainWindow(w_state); // window with all widgets

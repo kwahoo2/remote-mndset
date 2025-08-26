@@ -134,6 +134,7 @@ struct WindowState {
     InputConsumer iCons = hmd;
     bool has_gamepad = false;
     std::string gamepad_name = "";
+    int batt = -1;
     Config config {};
 };
 

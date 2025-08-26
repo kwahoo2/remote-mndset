@@ -19,7 +19,11 @@ void drawMainWindow(WindowState& state) {
         ImGui::Text("Right Controller placement input is active");
     }
     if (state.has_gamepad) {
-        ImGui::Text("Gamepad available: %s", state.gamepad_name.c_str());
+        std::string b_str = "";
+        if (state.batt >= 0) {
+            b_str = ", Battery level: " + std::to_string(state.batt) + "%";
+        }
+        ImGui::Text("Gamepad available: %s%s", state.gamepad_name.c_str(), b_str.c_str());
     } else {
         ImGui::Text("No gamepad found");
     }
