@@ -116,6 +116,7 @@ int main()
     /* TCP data part */
     std::unique_ptr<DataSender> dataSender = std::make_unique<DataSender>();
     r_remote_data data{};
+    r_remote_data old_data{}; // for velocity calculation
     // set some valid value for starting orientation
     const xrt_quat default_quat = {0.0f, 0.0f, 0.0f, 1.0f};
 
@@ -283,8 +284,12 @@ int main()
         // controllers following HMD
         leftMov->updatePose(left_rel);
         data.left.pose = poseMult(data.head.center, left_rel);
+        leftMov->updateVelocity(data.left.pose, old_data.left.pose,
+                                data.left.linear_velocity, data.left.angular_velocity);
         rightMov->updatePose(right_rel);
         data.right.pose = poseMult(data.head.center, right_rel);
+        rightMov->updateVelocity(data.right.pose, old_data.right.pose,
+                                data.right.linear_velocity, data.right.angular_velocity);
 
         /* Sending all the data */
         dataSender->sendData(data);
@@ -338,6 +343,8 @@ int main()
                                     config.mouse_sens, config.gamepad_axis_sens, config.gamepad_dead_zone);
         rightMov->updateConfigValues(config.controller_lin_vel, config.controller_ang_vel,
                                      config.mouse_sens, config.gamepad_axis_sens, config.gamepad_dead_zone);
+
+        old_data = data;
 
         // Rendering
         ImGui::Render();

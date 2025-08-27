@@ -117,6 +117,17 @@ void Movement::updatePose(xrt_pose& pose) {
     pose.position = pose.position + delta_pos;
 }
 
+/* Calculates angular and linear velocity based on last two poses */
+void Movement::updateVelocity(const xrt_pose& pose, const xrt_pose& old_pose,
+                                xrt_vec3& lin_vel, xrt_vec3& ang_vel) {
+    float dt = r_rate_mod / 1000.0f; // r_rate_mod is number of ms ticks beetween frames
+    lin_vel.x = (pose.position.x - old_pose.position.x) / dt;
+    lin_vel.y = (pose.position.y - old_pose.position.y) / dt;
+    lin_vel.z = (pose.position.z - old_pose.position.z) / dt;
+
+    ang_vel = calculateAngularVel(old_pose.orientation, pose.orientation, dt);
+}
+
 void Movement::checkKeyDown(SDL_Keycode key) {
     switch (key){
         case SDLK_W:

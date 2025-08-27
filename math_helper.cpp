@@ -53,3 +53,29 @@ struct xrt_pose poseMult(const xrt_pose& a, const xrt_pose& b) {
     result.position = a.position + quatMultVec(a.orientation, b.position);
     return result;
 }
+
+xrt_vec3 calculateAngularVel(const xrt_quat& q1, const xrt_quat& q2, float dt) {
+    glm::quat q1_glm = glm::quat(q1.w, q1.x, q1.y, q1.z);
+    glm::quat q2_glm = glm::quat(q2.w, q2.x, q2.y, q2.z);
+
+    glm::quat delta_q = glm::inverse(q1_glm) * q2_glm;
+
+    if (delta_q.w < 0.0f) {
+        delta_q = -delta_q;
+    }
+
+    float v_len = sqrt(delta_q.x * delta_q.x + delta_q.y * delta_q.y + delta_q.z * delta_q.z);
+    float w = delta_q.w;
+    float theta = atan2(v_len, w);
+
+    if (fabs(theta) < 1e-6) {
+        return {0.0f, 0.0f, 0.0f};
+    } else {
+        float scale = 2.0f * theta / dt;
+        xrt_vec3 result;
+        result.x = delta_q.x / v_len * scale;
+        result.y = delta_q.y / v_len * scale;
+        result.z = delta_q.z / v_len * scale;
+        return result;
+    }
+}

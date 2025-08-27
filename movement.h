@@ -41,6 +41,7 @@ public:
     void passGamepadState(SDL_Gamepad& gamepad);
     void updateTicks(Uint64 ticks);
     void updatePose(xrt_pose& pose);
+    void updateVelocity(const xrt_pose& pose, const xrt_pose& old_pose, xrt_vec3& lin_vel, xrt_vec3& ang_vel);
 };
 
 #endif // MOVEMENT_H
