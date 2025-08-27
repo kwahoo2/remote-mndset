@@ -11,7 +11,7 @@
 #include <string>
 
 #define	MONADO_PORT	4242
-#define R_HEADER_VALUE (*(uint64_t *)"mndrmt3\0") // seems to be unused by Monado
+#define R_HEADER_VALUE (*(uint64_t *)"mndrmt3\0") // used by Monado since e4931a46bd0a161a15a1a601f927d1dec30d23ce
 
 struct xrt_vec1 {
     float x;

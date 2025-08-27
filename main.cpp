@@ -116,6 +116,7 @@ int main()
     /* TCP data part */
     std::unique_ptr<DataSender> dataSender = std::make_unique<DataSender>();
     r_remote_data data{};
+    data.header = R_HEADER_VALUE;
     r_remote_data old_data{}; // for velocity calculation
     // set some valid value for starting orientation
     const xrt_quat default_quat = {0.0f, 0.0f, 0.0f, 1.0f};

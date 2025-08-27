@@ -12,7 +12,7 @@ Both keyboard and mouse or gamepad are supported.
 
 ## How to use
 
-* Install Monado
+* Install Monado [from git](https://gitlab.freedesktop.org/monado/monado/-/tree/main)
 * Install SDL3 development packages
 * Build _remote_mndset_:
 
