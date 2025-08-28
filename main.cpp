@@ -142,10 +142,6 @@ int main()
     while (running) {
         /* SDL event and data sending*/
 
-        // It seems that SDL_WarpMouseInWindow breaks V-sync, this forces loop to be at least 5 ms
-        while (SDL_GetTicks() - old_ticks < 5) {
-            SDL_Delay(1);
-        }
         Uint64 ticks = SDL_GetTicks();
         old_ticks = ticks; // End of the workaround
 
@@ -180,6 +176,7 @@ int main()
                 // ImGui will get acces to keyboard and mouse after the Esc key is hit
                 if (event.type == SDL_EVENT_KEY_DOWN) {
                     if (event.key.key == SDLK_ESCAPE) {
+                        SDL_SetWindowRelativeMouseMode (window, false);
                         mouse_kb_grabbed = false;
                     }
                 }
@@ -235,7 +232,6 @@ int main()
                 data.right.trigger_click = false;
             }
 
-            SDL_WarpMouseInWindow(window, base_mouse_x, base_mouse_y);
             ImGui::SetMouseCursor(ImGuiMouseCursor_None);
         }
 
@@ -327,14 +323,14 @@ int main()
         if (!w_state.connect_button_clicked && dataSender->isSocketOpened()) {
             dataSender->closeSocket();
         }
-        // mouse just grabbed, set where cursor will be locked
-        if (!mouse_kb_grabbed && w_state.grab_button_clicked)   {
-            SDL_GetMouseState(&base_mouse_x, &base_mouse_y);
-            // read realitve position once and do nothing, to avoid position jump at start
+
+        if (mouse_kb_grabbed != w_state.grab_button_clicked) {
+            mouse_kb_grabbed = w_state.grab_button_clicked;
+            SDL_SetWindowRelativeMouseMode(window, mouse_kb_grabbed);
+            // read relative position once and do nothing, to avoid position jump at start
             float x_rel, y_rel;
             SDL_GetRelativeMouseState(&x_rel, &y_rel);
         }
-        mouse_kb_grabbed = w_state.grab_button_clicked;
 
         config = w_state.config;
 
