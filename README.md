@@ -4,7 +4,7 @@ This is an alternative GUI for [Monado's](https://monado.dev/) remote driver.
 
 It has been created for testing VR applications without wearing a HMD or using motion controllers.
 
-Both keyboard and mouse or gamepad are supported.
+Both keyboard and mouse or gamepad are supported. [See this short video demo.](https://www.youtube.com/watch?v=MD6wmUCsC0g)
 
 ![remote-mndset][rmds]
 
@@ -64,6 +64,17 @@ Note: a keyboard + mouse and a controller cannot be used simultaneously (the con
 | South (triangle/A)|                     | Left Contr. A               | Right Contr. A               |
 | East  (circle/B)  |                     | Left Contr. B               | Right Contr. B               |
 
+## Comaprison to Monado Qwerty driver
+
+_remote-mndset_ is a similar tool to [Monado Qwerty driver](https://monado.pages.freedesktop.org/monado/group__drv__qwerty.html), but there are some differences:
+
+|                     |remote-mndset       |Qwerty driver |
+|---------------------|--------------------|--------------|
+|Gamepad              |Supported           |Not supported |
+|Mouse lock           |All time if selected|If RMB pressed|
+|Debug tools          |No                  |Yes           |
+|Saves preferences    |Yes                 |No            |
+|Remote PC connection |Supported           |Not supported |
 
 ## License
 
